@@ -33,10 +33,12 @@ game_is_on = True
 while game_is_on:
     screen.update()
     ball.start_pos()
-    while not (abs(ball.xcor()) > AREA_X/2 or abs(ball.ycor()) > AREA_Y/2):
+    while abs(ball.xcor()) < AREA_X/2:
         screen.update()
-        time.sleep(0.01)
+        time.sleep(0.008)
         ball.move()
+        if abs(ball.ycor()) > AREA_Y/2:
+            ball.reflection()
 
 
 screen.mainloop()
