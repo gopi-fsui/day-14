@@ -1,22 +1,37 @@
 from turtle import Turtle
-
-class Paddle(Turtle):
+MOVE_STEP = 25
+class Paddle:
     def __init__(self,start_pos_x,height):
-        super().__init__("square")
         self.half_height = height/2
-        self.color("black")
-        self.shapesize(0.5,3,1)
-        self.penup()
-        self.goto(start_pos_x,0)
-        self.setheading(90)
-        # self.speed(0)
-        # print("created")
+        self.start_pos_x = start_pos_x
+        self.paddles_boxes = []
+        self.add_paddle_boxes()
+        self.center_paddle = self.paddles_boxes[2]
+        self.set_paddle()
+
+    def add_paddle_boxes(self):
+        for y in [-20, -10, 0, 10, 20]:
+            new_paddle = Turtle("square")
+            new_paddle.color("Red")
+            new_paddle.shapesize(0.5)
+            new_paddle.penup()
+            new_paddle.goto(0, y)
+            self.paddles_boxes.append(new_paddle)
+
+
+    def set_paddle(self):
+        for item in self.paddles_boxes:
+            item.goto(self.start_pos_x, item.ycor())
+            item.setheading(90)
 
     def move_up(self):
-        if  self.ycor() < self.half_height-30:
-            self.fd(30)
+        # print("")
+        if  self.center_paddle.ycor() < self.half_height - MOVE_STEP:
+            for item in self.paddles_boxes:
+                item.fd(MOVE_STEP)
 
     def move_down(self):
-        if  self.ycor() > -(self.half_height-30):
-            self.bk(30)
-
+        if  self.center_paddle.ycor() > -(self.half_height - MOVE_STEP):
+            for item in self.paddles_boxes:
+                item.bk(MOVE_STEP)
+                
