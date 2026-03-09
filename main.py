@@ -1,4 +1,4 @@
-from turtle import Screen
+from turtle import Screen,Turtle
 from backGround import BackGround
 from paddle import Paddle
 from ball import Ball
@@ -56,13 +56,20 @@ while game_is_on:
         left_score.score += 1
         left_score.update_score()
 
-    if left_score.score == 10 or right_score.score == 10:
+    if left_score.score >= 10 or right_score.score >= 10:
         game_is_on = False
 
+
+win_state = Turtle()
+win_state.hideturtle()
+win_state.color("red")
+win_state.teleport(0,screen.window_height()/2 -50)
+
+
 if left_score.score > right_score.score:
-    print("Left Win!!!")
+    win_state.write("Left Win!!",align="center",font=("arial",40,"bold"))
 else:
-    print("Right Win")
+    win_state.write("Right Win!!",align="center",font=("arial",40,"bold"))
 
 screen.mainloop()
 
